@@ -39,4 +39,9 @@ export const getShopData = async () =>
     return shop_data_object;
 }
 
+const provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({prompt: 'select_account'});
+export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
+
 export default firebase;
