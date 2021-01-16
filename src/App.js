@@ -7,8 +7,14 @@ import CategoryPageComponent from './components/pages/category-page/CategoryPage
 import ItemPageComponent from './components/pages/item-page/ItemPageComponent';
 import CheckoutPageCheckout from './components/pages/checkout-page/CheckoutPageComponent';
 
+import { getShopData } from './firebase/firebase.utils';
+
 class App extends React.Component
 {
+    componentDidMount = async () =>
+    {
+        console.log(await getShopData());
+    }
     
     render()
     {
