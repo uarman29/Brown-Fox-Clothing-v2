@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import HomePageComponent from './components/pages/home-page/HomePageComponent';
 import CategorySelectionPageComponent from './components/pages/category-selection-page/CategorySelectionPageComponent';
@@ -7,23 +8,27 @@ import CategoryPageComponent from './components/pages/category-page/CategoryPage
 import ItemPageComponent from './components/pages/item-page/ItemPageComponent';
 import CheckoutPageCheckout from './components/pages/checkout-page/CheckoutPageComponent';
 
-import { getShopData } from './firebase/firebase.utils';
+import { fetchShopData } from './redux/actions/shopDataActions';
+import HeaderComponent from './components/header/HeaderComponent';
+import './App.css';
 
 class App extends React.Component
 {
     componentDidMount = async () =>
     {
-        console.log(await getShopData());
+        await this.props.fetchShopData();
     }
     
     render()
     {
         return(
             <div>
+                <HeaderComponent />
+                <hr />
                 <Switch>
                     <Route path="/:category/:subcategory/:itemId" component={ItemPageComponent}/>
                     <Route path="/:category/:subcategory" component={CategoryPageComponent}/>
-                    <Route path="/categories" component={CategorySelectionPageComponent}/>
+                    <Route path="/:category" component={CategorySelectionPageComponent}/>
                     <Route path="/checkout" component={CheckoutPageCheckout}/>
                     <Route path="/" component={HomePageComponent}/>
                 </Switch>
@@ -32,4 +37,4 @@ class App extends React.Component
     }
 }
 
-export default App;
+export default connect(null, { fetchShopData })(App);
