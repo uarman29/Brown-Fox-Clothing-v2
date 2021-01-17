@@ -61,7 +61,7 @@ class App extends React.Component
 }
 
 const mapStateToProps = (state) =>{
-    return {currentUser: state.user.currentUser};
+    return {currentUser: state.user.currentUser, shopData: state.shopData.data};
 }
 
 export default connect(mapStateToProps, { fetchShopData, setCurrentUser })(App);

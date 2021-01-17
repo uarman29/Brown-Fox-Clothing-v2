@@ -12,6 +12,7 @@ const HomePageComponent = (props) =>
             return <CategoryCardComponent key={key} item={props.shopData[key]}/>;
         });
     }
+    
     return(
         <div className="homepage">
             <div className="homepage-categories">

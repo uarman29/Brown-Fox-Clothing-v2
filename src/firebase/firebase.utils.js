@@ -56,23 +56,26 @@ export const getShopData = async () =>
 {
     const shop_data_object = {};
     const shop_data = firestore.collection("shop_data");
-    await shop_data.get().then(shopSnapshot =>{
-        shopSnapshot.docs.forEach(categoryDoc =>{
+
+    await shop_data.get().then(async shopSnapshot =>{
+        await Promise.all(shopSnapshot.docs.map(async categoryDoc =>{
             shop_data_object[categoryDoc.data().id] = {...categoryDoc.data(), categories:{}};
-            categoryDoc.ref.collection("category").get().then((category) =>{
-                category.docs.forEach(subCategoryDoc =>{
-                    shop_data_object[categoryDoc.data().id]["categories"] = {...subCategoryDoc.data(), items:{}};
-                    subCategoryDoc.ref.collection("items").get().then(items =>{
+            await categoryDoc.ref.collection("categories").get().then(async (category) =>{
+                await Promise.all(category.docs.map( async subCategoryDoc =>{
+                    shop_data_object[categoryDoc.data().id]["categories"][subCategoryDoc.data().id] = {...subCategoryDoc.data(), items:{}};
+                    await subCategoryDoc.ref.collection("items").get().then(items =>{
                         items.docs.forEach(item =>{
-                            shop_data_object[categoryDoc.data().id]["categories"]["items"][item.data().id] = {...item.data()};
+                            shop_data_object[categoryDoc.data().id]["categories"][subCategoryDoc.data().id]["items"][item.data().id] = {...item.data()};
                         });
                     });
-                });
+                }));
             });
-        });
+        }));
     });
+    
     return shop_data_object;
 }
+
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({prompt: 'select_account'});
