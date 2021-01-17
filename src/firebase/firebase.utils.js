@@ -17,6 +17,41 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
+export const createUserProfileDocument = async (userAuth, additionalData) =>
+{
+    if(!userAuth) return;
+
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+    const snapShot = await userRef.get();
+
+    if(!snapShot.exists)
+    {
+        const { displayName, email, uid } = userAuth;
+        const createdAt = new Date();
+        const cart = {};
+        const orders = {};
+
+        try
+        {
+            await userRef.set({
+                uid,
+                displayName,
+                email,
+                createdAt,
+                cart,
+                orders,
+                ...additionalData
+            });
+        }
+        catch(error)
+        {
+            console.log('error creating user', error.message);
+        }
+    }
+
+    return userRef;
+}
+
 export const getShopData = async () =>
 {
     const shop_data_object = {};
