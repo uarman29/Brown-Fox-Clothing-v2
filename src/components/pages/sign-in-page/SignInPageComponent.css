@@ -16,6 +16,7 @@
     margin-right: auto;
     margin-left: auto;
     align-self: center;
+    
 }
 
 .sign-in-container h1
@@ -26,4 +27,23 @@
     padding: 10px;
     margin: 0;
     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+
+.sign-in-container .buttons
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.sign-in-container .sign-up-section
+{
+    width: 100%;
+    text-align: center;
+    font-size: larger;
+    padding: 10px;
+    background-color:rgb(223, 219, 219);
+    color: blue;
+    cursor: pointer;
 }

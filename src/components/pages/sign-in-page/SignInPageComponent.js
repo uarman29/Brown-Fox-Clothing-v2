@@ -1,5 +1,6 @@
 import React from 'react';
 import CustomFormInputComponent from '../../custom-form-input/CustomFormInputComponent';
+import CustomButtonComponent from '../../custom-button-component/CustomButtonComponent';
 import './SignInPageComponent.css';
 
 const SignInPageComponent = () =>
@@ -11,6 +12,14 @@ const SignInPageComponent = () =>
                 <form>
                     <CustomFormInputComponent label="Email" type="email" required name="email"/>
                     <CustomFormInputComponent label="Password" type="password" required name="password"/>
+
+                    <div className="buttons">
+                        <CustomButtonComponent type="submit">Sign in</CustomButtonComponent>
+                        <CustomButtonComponent isGoogleSignIn type="button">Sign in with Google</CustomButtonComponent>
+                    </div>
+                    <div className="sign-up-section">
+                        Don't have an account? Sign Up
+                    </div>
                 </form>
             </div>
         </div>
