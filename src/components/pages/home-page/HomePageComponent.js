@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import CategoryCardComponent from '../../category-card/CategoryCardComponent';
+import SpinnerComponent from '../../spinner/SpinnerComponent';
 import './HomePageComponent.css';
 
 const HomePageComponent = (props) =>
@@ -9,14 +10,14 @@ const HomePageComponent = (props) =>
     const renderCategories = () =>
     {
         return Object.keys(props.shopData).map(key =>{
-            return <CategoryCardComponent key={key} item={props.shopData[key]}/>;
+            return <div key={key} className="card-container"><CategoryCardComponent item={props.shopData[key]}/> </div>;
         });
     }
     
     return(
         <div className="homepage">
             <div className="homepage-categories">
-                {props.isLoading ? null : renderCategories()}
+                {props.isLoading ? (<SpinnerComponent />) : renderCategories()}
             </div>
         </div>
     );

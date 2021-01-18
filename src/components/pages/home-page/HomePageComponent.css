@@ -11,6 +11,31 @@
 {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.homepage-categories .card-container
+{
+    width: auto;
+    height: auto;
+    min-width: 200px;
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    justify-self: center;
+}
+
+/*
+.homepage-categories
+{
+    width: 100%;
+    height: 100%;
     display: grid;
     justify-content: center;
     align-items: center;
@@ -19,3 +44,4 @@
     grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
     grid-template-rows: repeat(auto-fill, minmax(90%, 100%));
 }
+*/

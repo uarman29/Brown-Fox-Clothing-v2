@@ -1,0 +1,33 @@
+.category-selection-page
+{
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    align-self: center;
+    width: 100%;
+    height: 80vh;
+}
+
+.categories-container
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.categories-container .card-container
+{
+    width: auto;
+    height: auto;
+    min-width: 200px;
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    justify-self: center;
+}
