@@ -1,4 +1,4 @@
-.menu-item
+.category-card
 {
     width: 95%;
     height: 95%;
@@ -13,7 +13,7 @@
     justify-self: center;
 }
 
-.menu-item .content
+.category-card .content
 {
     height: 50%;
     width: 50%;
@@ -28,23 +28,23 @@
     position: absolute;
 }
 
-.menu-item:hover
+.category-card:hover
 {
     cursor: pointer;
 }
 
-.menu-item:hover .background-image
+.category-card:hover .background-image
 {
     transform: scale(1.1);
     transition: transform 6s cubic-bezier(.25, .45, .45, .95);
 }
 
-.menu-item:hover .content
+.category-card:hover .content
 {
     opacity: .9;
 }
 
-.menu-item .background-image
+.category-card .background-image
 {
     width: 100%;
     height: 100%;
@@ -52,7 +52,7 @@
     background-size: cover;
 }
 
-.menu-item .content .title
+.category-card .content .title
 {
     font-weight: bold;
     margin-bottom: 6px;
@@ -60,7 +60,7 @@
     color: #4a4a4a;
 }
 
-.menu-item .content .subtitle
+.category-card .content .subtitle
 {
     font-weight: lighter;
     font-size: auto;
