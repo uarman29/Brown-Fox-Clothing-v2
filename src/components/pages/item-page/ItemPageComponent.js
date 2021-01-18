@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import SpinnerComponent from '../../spinner/SpinnerComponent';
+import CustomButtonComponent from '../../custom-button-component/CustomButtonComponent';
 import './ItemPageComponent.css';
 
 const ItemPageComponent = (props) =>
@@ -19,7 +20,10 @@ const ItemPageComponent = (props) =>
                     style={{backgroundImage: `url(${item.imageUrl})`}}
                 />
                 <div className="item-details">
-                    <div>{item.name}</div>
+                    <div className="item-name">{item.name}</div>
+                    <hr/>
+                    <div className="item-price">${item.price}</div>
+                    <CustomButtonComponent>Add to Cart</CustomButtonComponent>
                 </div>
             </div>
         </div>
