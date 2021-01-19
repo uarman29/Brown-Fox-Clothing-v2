@@ -129,26 +129,7 @@ export const clearItemFromCart = (item) =>
 
 export const clearCart = () =>
 {
-    return async (dispatch, getState) =>
-    {
-        const newCart = {};
-
-        if(getState().user.currentUser !== null)
-        {
-            const userRef = firestore.doc(`users/${getState().user.currentUser.uid}`);
-            try
-            {
-                await userRef.update("cart", newCart);
-            }
-            catch(error)
-            {
-                console.log("Error Clearing Cart", error.message);
-            }
-        }
-
-        dispatch({
-            type: CLEAR_CART
-        });
-
-    }
+    return{
+        type: CLEAR_CART
+    };
 }

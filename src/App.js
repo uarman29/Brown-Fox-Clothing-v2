@@ -19,15 +19,19 @@ import './App.css';
 
 class App extends React.Component
 {
+    unsubscribeFromAuth = null;
+    unsubscribeFromUser = null;
     componentDidMount = async () =>
     {
         await this.props.fetchShopData();
         this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
+            if(this.unsubscribeFromUser !== null)
+                this.unsubscribeFromUser();
             this.props.clearCart();
             if(userAuth)
             {
                 const userRef = await createUserProfileDocument(userAuth);
-                userRef.onSnapshot(snapShot =>{
+                this.unsubscribeFromUser = userRef.onSnapshot(snapShot =>{
                     this.props.setCurrentUser(snapShot.data());
                     this.props.fetchCart();
                 });
@@ -42,6 +46,8 @@ class App extends React.Component
     componentWillUnmount()
     {
         this.unsubscribeFromAuth();
+        if(this.unsubscribeFromUser !== null)
+            this.unsubscribeFromUser();
     }
 
     render()

@@ -15,15 +15,16 @@ const SignInPageComponent = () =>
         event.preventDefault();
         try
         {
-            await auth.signInWithEmailAndPassword(email, password);
+            const emailVar = email;
+            const passwordVar = password;
+            setEmail('');
+            setPassword('');
+            await auth.signInWithEmailAndPassword(emailVar, passwordVar);
         }
         catch(error)
         {
             alert(error.message);
         }
-
-        setEmail('');
-        setPassword('');
     }
 
     return(

@@ -22,12 +22,15 @@ const SignUpPageComponent = () =>
 
         try
         {
-            const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            await createUserProfileDocument(user, { displayName: name });
+            const emailVar = email;
+            const passwordVar = password;
+            const nameVar = name;
             setEmail('');
             setPassword('');
             setName('');
             setConfirmPassword('');    
+            const { user } = await auth.createUserWithEmailAndPassword(emailVar, passwordVar);
+            await createUserProfileDocument(user, { displayName: nameVar });
         }
         catch(error)
         {
