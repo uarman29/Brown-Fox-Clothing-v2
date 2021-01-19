@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import CustomFormInputComponent from '../../custom-form-input/CustomFormInputComponent';
 import CustomButtonComponent from '../../custom-button-component/CustomButtonComponent';
 import { auth, signInWithGoogle } from '../../../firebase/firebase.utils';
@@ -53,7 +54,7 @@ const SignInPageComponent = () =>
                         <CustomButtonComponent isGoogleSignIn onClick={signInWithGoogle} type="button">Sign in with Google</CustomButtonComponent>
                     </div>
                     <div className="sign-up-section">
-                        Don't have an account? Sign Up
+                        <Link to="/signUp">Don't have an account? Sign Up</Link>
                     </div>
                 </form>
             </div>

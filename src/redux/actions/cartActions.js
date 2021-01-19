@@ -1,5 +1,5 @@
-import { firestore } from '../../firebase/firebase.util';
-import { ADD_ITEM_TO_CART } from '../types';
+import { firestore } from '../../firebase/firebase.utils';
+import { ADD_ITEM_TO_CART, CLEAR_CART, CLEAR_ITEM_FROM_CART, FETCH_CART, REMOVE_ITEM_FROM_CART } from '../types';
 
 export const fetchCart = () =>
 {
@@ -14,10 +14,13 @@ export const fetchCart = () =>
 
 const addItemToCartHelper = (cartItems, itemToAdd) =>
 {
-    var cartItemsCopy = {...cartItems};
+    let cartItemsCopy = {...cartItems};
 
     if(itemToAdd.id in cartItemsCopy)
-        return cartItemsCopy[itemToAdd.id]["quantity"] =  cartItemsCopy[itemToAdd.id]["quantity"] + 1;
+    {
+        cartItemsCopy[itemToAdd.id]["quantity"] =  cartItemsCopy[itemToAdd.id]["quantity"] + 1;
+        return cartItemsCopy;
+    }
     else
     {
         cartItemsCopy[itemToAdd.id] = ({...itemToAdd, quantity: 1});
@@ -51,21 +54,23 @@ export const addCartItem = (item) =>
     }
 }
 
-/*
+
 const removeItemFromCartHelper = (cartItems, itemToRemove) =>
 {
-    const existingItem = cartItems.find(item => item.id === itemToRemove.id);
+    let cartItemsCopy = {...cartItems};
 
-    if(existingItem && existingItem.quantity === 1)
+    if(itemToRemove.id in cartItemsCopy)
     {
-        return cartItems.filter(item => item.id !== itemToRemove.id);
-    }
-    else if(existingItem)
-    {
-        return cartItems.map(item => item.id === itemToRemove.id ? {...item, quantity: item.quantity - 1} : item);
+        if(cartItemsCopy[itemToRemove.id]["quantity"] === 1)
+        {
+            delete cartItemsCopy[itemToRemove.id];
+            return cartItemsCopy;
+        }
+
+        cartItemsCopy[itemToRemove.id]["quantity"] =  cartItemsCopy[itemToRemove.id]["quantity"] - 1;
     }
 
-    return cartItems;
+    return cartItemsCopy;
 }
 
 export const removeCartItem = (item) =>
@@ -87,7 +92,7 @@ export const removeCartItem = (item) =>
         }
 
         dispatch({
-            type: REMOVE_ITEM,
+            type: REMOVE_ITEM_FROM_CART,
             payload: newCart
         });
 
@@ -98,7 +103,8 @@ export const clearItemFromCart = (item) =>
 {
     return async (dispatch, getState) =>
     {
-        const newCart = getState().cart.filter(selectedItem => selectedItem.id !== item.id);
+        let newCart = getState().cart;
+        delete newCart[item.id];
 
         if(getState().user.currentUser !== null)
         {
@@ -125,7 +131,7 @@ export const clearCart = () =>
 {
     return async (dispatch, getState) =>
     {
-        const newCart = [];
+        const newCart = {};
 
         if(getState().user.currentUser !== null)
         {
@@ -146,4 +152,3 @@ export const clearCart = () =>
 
     }
 }
-*/

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import SpinnerComponent from '../../spinner/SpinnerComponent';
 import CustomButtonComponent from '../../custom-button-component/CustomButtonComponent';
+import { addCartItem } from '../../../redux/actions/cartActions';
 import './ItemPageComponent.css';
 
 const ItemPageComponent = (props) =>
@@ -23,7 +24,7 @@ const ItemPageComponent = (props) =>
                     <div className="item-name">{item.name}</div>
                     <hr/>
                     <div className="item-price">${item.price}</div>
-                    <CustomButtonComponent>Add to Cart</CustomButtonComponent>
+                    <CustomButtonComponent onClick={() => props.addCartItem(item)} type="button">Add to Cart</CustomButtonComponent>
                 </div>
             </div>
         </div>
@@ -35,4 +36,4 @@ const mapStateToProps = (state) =>
     return {isLoading: state.shopData.isLoading, shopData: state.shopData.data};
 }
 
-export default withRouter(connect(mapStateToProps)(ItemPageComponent));
+export default withRouter(connect(mapStateToProps, { addCartItem })(ItemPageComponent));

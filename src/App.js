@@ -9,10 +9,12 @@ import ItemPageComponent from './components/pages/item-page/ItemPageComponent';
 import CheckoutPageCheckout from './components/pages/checkout-page/CheckoutPageComponent';
 import HeaderComponent from './components/header/HeaderComponent';
 import SignInPageComponent from './components/pages/sign-in-page/SignInPageComponent';
+import SignUpPageComponent from './components/pages/sign-up-page/SignUpPageComponent';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { fetchShopData } from './redux/actions/shopDataActions';
 import { setCurrentUser } from './redux/actions/userActions';
+import { fetchCart, clearCart } from './redux/actions/cartActions';
 import './App.css';
 
 class App extends React.Component
@@ -21,11 +23,13 @@ class App extends React.Component
     {
         await this.props.fetchShopData();
         this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
+            this.props.clearCart();
             if(userAuth)
             {
                 const userRef = await createUserProfileDocument(userAuth);
-                this.unsubscribeFromUser = userRef.onSnapshot(snapShot =>{
+                userRef.onSnapshot(snapShot =>{
                     this.props.setCurrentUser(snapShot.data());
+                    this.props.fetchCart();
                 });
             }
             else
@@ -38,7 +42,6 @@ class App extends React.Component
     componentWillUnmount()
     {
         this.unsubscribeFromAuth();
-        this.unsubscribeFromUser();
     }
 
     render()
@@ -50,6 +53,7 @@ class App extends React.Component
                 <Switch>
                     <Route path="/checkout" component={CheckoutPageCheckout}/>
                     <Route path="/signIn" render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignInPageComponent />)}/>
+                    <Route path="/signUp" render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignUpPageComponent />)}/>
                     <Route path="/:category/:subcategory/:itemId" component={ItemPageComponent}/>
                     <Route path="/:category/:subcategory" component={CategoryPageComponent}/>
                     <Route path="/:category" component={CategorySelectionPageComponent}/>
@@ -64,4 +68,4 @@ const mapStateToProps = (state) =>{
     return {currentUser: state.user.currentUser, shopData: state.shopData.data};
 }
 
-export default connect(mapStateToProps, { fetchShopData, setCurrentUser })(App);
+export default connect(mapStateToProps, { fetchShopData, setCurrentUser, fetchCart, clearCart })(App);
