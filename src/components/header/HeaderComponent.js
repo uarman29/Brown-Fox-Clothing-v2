@@ -22,7 +22,7 @@ const HeaderComponent = (props) =>{
                     :
                     <Link className="option" to="/signIn">SIGN IN</Link>
                 }
-                <CartIconComponent />
+                <Link className="option" to="/checkout"><CartIconComponent /></Link>
             </div>
         </div>
     );
