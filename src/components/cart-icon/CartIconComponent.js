@@ -20,26 +20,22 @@ const CartIconComponent = (props) =>
 
     const dropdownController = (event) =>
     {
-        event.preventDefault();
+        event.stopPropagation();
         if(iconElement.current.contains(event.target))
         {
-            console.log('AYOOO');
             if(!showDropdown)
             {
-                console.log('AYOOO HERE');
                 setShowDropdown(true);
                 document.addEventListener('click', dropdownController);
             }
             else
             {
-                console.log('AYOOO THERE');
                 setShowDropdown(false);
                 document.removeEventListener('click', dropdownController);
             }
         }
         else
         {
-            console.log('AYOOO EVERYWHERE');
             setShowDropdown(false);
             document.removeEventListener('click', dropdownController);
         }
@@ -52,7 +48,7 @@ const CartIconComponent = (props) =>
                 <ShoppingIcon className="shopping-icon"/>
                 <span className="item-count">{countItems()}</span>
             </div>
-            {showDropdown ? (<CartDropdownComponent />) : null}
+            {showDropdown ? (<CartDropdownComponent handleClick={dropdownController}/>) : null}
         </div>
     );
 };

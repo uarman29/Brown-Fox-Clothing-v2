@@ -28,7 +28,7 @@ const CartDropdownComponent = (props) =>
         <div className="cart-items">
             {renderCartItems()}
         </div>
-        <CustomButtonComponent onClick={() => {props.history.push("/checkout");}}>GO TO CHECKOUT</CustomButtonComponent>
+        <CustomButtonComponent onClick={(e) => {props.handleClick(e); props.history.push("/checkout");}}>GO TO CHECKOUT</CustomButtonComponent>
     </div>
     );
 }
