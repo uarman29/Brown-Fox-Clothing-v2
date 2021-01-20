@@ -12,27 +12,27 @@ export const fetchCart = () =>
     };
 }
 
-const addItemToCartHelper = (cartItems, itemToAdd) =>
+const addItemToCartHelper = (cartItems, itemToAdd, quantity) =>
 {
     let cartItemsCopy = {...cartItems};
 
     if(itemToAdd.id in cartItemsCopy)
     {
-        cartItemsCopy[itemToAdd.id]["quantity"] =  cartItemsCopy[itemToAdd.id]["quantity"] + 1;
+        cartItemsCopy[itemToAdd.id]["quantity"] =  parseFloat(cartItemsCopy[itemToAdd.id]["quantity"]) + parseFloat(quantity);
         return cartItemsCopy;
     }
     else
     {
-        cartItemsCopy[itemToAdd.id] = ({...itemToAdd, quantity: 1});
+        cartItemsCopy[itemToAdd.id] = ({...itemToAdd, quantity: parseFloat(quantity)});
         return cartItemsCopy;
     }
 }
 
-export const addCartItem = (item) =>
+export const addCartItem = (item, quantity = 1) =>
 {
     return async (dispatch, getState) =>
     {
-        const newCart = addItemToCartHelper(getState().cart, item);
+        const newCart = addItemToCartHelper(getState().cart, item, quantity);
         if(getState().user.currentUser !== null)
         {
             const userRef = firestore.doc(`users/${getState().user.currentUser.uid}`);

@@ -41,8 +41,8 @@ const CheckoutPageCheckout = (props) =>
                 </div>
                 <div className="payment-details">
                     SUBTOTAL: ${subTotal.toFixed(2)}<br/>
-                    TAX: ${(subTotal * .08).toFixed(2)}<br/>
-                    TOTAL: ${(subTotal * 1.08).toFixed(2)}
+                    SHIPPING: FREE <br />
+                    TOTAL: ${(subTotal).toFixed(2)}
                 </div>
             </div>
         </div>

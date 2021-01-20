@@ -18,6 +18,22 @@
     justify-content: center;
 }
 
+.item-details .add-to-cart-button
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+}
+
+.item-details .add-to-cart-button:first-child
+{
+    width: 90%;
+    justify-self: center;
+    align-self: center;
+}
+
 .item-page .item-image
 {
     width: 40%;
@@ -41,4 +57,31 @@
 .item-details .item-price
 {
     font-size: 3vw;
+}
+
+.item-details .quantity
+{
+    display: flex;
+    width: 80%;
+    height: 5%;
+    align-items:baseline;
+    margin-bottom: 3%;
+}
+
+.item-details .quantity .quantity-label
+{
+    font-size: 2vw;
+    margin-right: 5px;
+}
+
+.item-details .quantity .quantity-value
+{
+    height: 90%;
+}
+
+.item-details .quantity .quantity-value input
+{
+    width: 50px;
+    font-size: 1.5vw;
+    height: 90%;
 }

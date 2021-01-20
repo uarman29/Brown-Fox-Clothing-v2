@@ -11,9 +11,9 @@ const CartIconComponent = (props) =>
     const iconElement = useRef(null);
 
     const countItems = () =>{
-        let count = 0;
+        let count = parseFloat(0);
         Object.keys(props.cart).forEach(itemKey =>{
-            count += props.cart[itemKey]["quantity"];
+            count += parseFloat(props.cart[itemKey]["quantity"]);
         });
         return count;
     }

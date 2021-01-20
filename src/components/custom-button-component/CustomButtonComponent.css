@@ -52,3 +52,9 @@
     color: white;
     border: none;
 }
+
+.custom-button:disabled
+{
+    background-color: lightgray;
+    color: black;
+}

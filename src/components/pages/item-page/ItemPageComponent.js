@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -9,6 +9,24 @@ import './ItemPageComponent.css';
 
 const ItemPageComponent = (props) =>
 {
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [buttonText, setButtonText] = useState('Add to Cart');
+    const [quantity, setQuantity] = useState(1);
+
+    const handleButtonClick = () =>
+    {
+        setButtonDisabled(true);
+        props.addCartItem(item, quantity);
+        setButtonText("Added!");
+        setTimeout(resetButton, 1000);
+    }
+
+    const resetButton = () =>
+    {
+        setButtonDisabled(false);
+        setButtonText("Add to Cart");
+    }
+
     if(props.isLoading)
         return <SpinnerComponent />;
 
@@ -24,7 +42,15 @@ const ItemPageComponent = (props) =>
                     <div className="item-name">{item.name}</div>
                     <hr/>
                     <div className="item-price">${item.price}</div>
-                    <CustomButtonComponent onClick={() => props.addCartItem(item)} type="button">Add to Cart</CustomButtonComponent>
+                    <div className="quantity">
+                        <div className="quantity-label">Quantity:    </div>
+                        <div className="quantity-value">
+                            <input min="1" max="99" type="number" value={quantity} onChange={(e)=> setQuantity(e.target.value)}/>
+                        </div>
+                    </div>
+                    <div className="add-to-cart-button">
+                        <CustomButtonComponent disabled={buttonDisabled} onClick={handleButtonClick} type="button">{buttonText}</CustomButtonComponent>
+                    </div>
                 </div>
             </div>
         </div>
