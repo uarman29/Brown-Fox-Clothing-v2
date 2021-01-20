@@ -11,7 +11,7 @@ const CheckoutItemComponent = (props) =>
             <div className="image-container">
                 <img alt={props.item.name} src={props.item.imageUrl}/>
             </div>
-            <span className="name">{props.item.name}</span>
+            <span className="name">{props.item.name} ({props.item.size})</span>
             <span className="quantity">
                 <div className="arrow" onClick={() => props.removeCartItem(props.item)}>&#10094;</div>
                 <span className="value">{props.item.quantity}</span>
