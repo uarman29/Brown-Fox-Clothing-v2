@@ -14,7 +14,7 @@ import SignUpPageComponent from './components/pages/sign-up-page/SignUpPageCompo
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { fetchShopData } from './redux/actions/shopDataActions';
 import { setCurrentUser } from './redux/actions/userActions';
-import { fetchCart, clearCart } from './redux/actions/cartActions';
+import { fetchCart, clearCart, combineLocalAndUserCarts } from './redux/actions/cartActions';
 import './App.css';
 
 class App extends React.Component
@@ -23,14 +23,20 @@ class App extends React.Component
     unsubscribeFromUser = null;
     componentDidMount = async () =>
     {
+        this.props.clearCart(false);
         await this.props.fetchShopData();
         this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
             if(this.unsubscribeFromUser !== null)
                 this.unsubscribeFromUser();
-            this.props.clearCart();
+            
             if(userAuth)
             {
                 const userRef = await createUserProfileDocument(userAuth);
+                const snapShot = await userRef.get();
+                this.props.setCurrentUser(snapShot.data());
+                await this.props.combineLocalAndUserCarts();
+                this.props.fetchCart();
+
                 this.unsubscribeFromUser = userRef.onSnapshot(snapShot =>{
                     this.props.setCurrentUser(snapShot.data());
                     this.props.fetchCart();
@@ -39,6 +45,7 @@ class App extends React.Component
             else
             {
                 this.props.setCurrentUser(null);
+                this.props.clearCart(false);
             }
         });
     }
@@ -74,4 +81,4 @@ const mapStateToProps = (state) =>{
     return {currentUser: state.user.currentUser, shopData: state.shopData.data};
 }
 
-export default connect(mapStateToProps, { fetchShopData, setCurrentUser, fetchCart, clearCart })(App);
+export default connect(mapStateToProps, { fetchShopData, setCurrentUser, fetchCart, clearCart, combineLocalAndUserCarts })(App);

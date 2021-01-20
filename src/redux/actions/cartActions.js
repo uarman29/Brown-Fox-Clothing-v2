@@ -1,5 +1,5 @@
 import { firestore } from '../../firebase/firebase.utils';
-import { ADD_ITEM_TO_CART, CLEAR_CART, CLEAR_ITEM_FROM_CART, FETCH_CART, REMOVE_ITEM_FROM_CART } from '../types';
+import { ADD_ITEM_TO_CART, CLEAR_CART, CLEAR_ITEM_FROM_CART, COMBINE_LOCAL_AND_USER_CARTS, FETCH_CART, REMOVE_ITEM_FROM_CART } from '../types';
 
 export const fetchCart = () =>
 {
@@ -127,33 +127,91 @@ export const clearItemFromCart = (item) =>
     }
 }
 
-export const clearCart = () =>
+export const clearCart = (clearSignedInCart = false) =>
 {
-    /*
+    if(clearSignedInCart)
+    {
+        return async (dispatch, getState) =>
+        {
+            const newCart = {};
+
+            if(getState().user.currentUser !== null)
+            {
+                const userRef = firestore.doc(`users/${getState().user.currentUser.uid}`);
+                try
+                {
+                    await userRef.update("cart", newCart);
+                }
+                catch(error)
+                {
+                    console.log("Error Clearing Cart", error.message);
+                }
+            }
+
+            dispatch({
+                type: CLEAR_CART
+            });
+
+        }
+    }
+    else
+    {
+        return{
+            type: CLEAR_CART
+        };
+    }
+}
+
+export const combineLocalAndUserCarts = () =>
+{
     return async (dispatch, getState) =>
     {
-        const newCart = {};
-
         if(getState().user.currentUser !== null)
         {
             const userRef = firestore.doc(`users/${getState().user.currentUser.uid}`);
             try
             {
-                await userRef.update("cart", newCart);
+                const userSnap = await userRef.get();
+                let userCart = userSnap.data().cart;
+                let localCart = {...getState().cart};
+                if(Object.keys(localCart).length === 0)
+                {
+                    dispatch({
+                        type: COMBINE_LOCAL_AND_USER_CARTS,
+                        payload: userCart
+                    });
+                    return;
+                }
+                
+                Object.keys(localCart).forEach(localCartItemKey =>{
+                    if(localCartItemKey in userCart)
+                    {
+                        userCart[localCartItemKey]["quantity"] =  parseFloat(userCart[localCartItemKey]["quantity"]) + 
+                                                                    parseFloat(localCart[localCartItemKey]["quantity"]);
+                    }
+                    else
+                    {
+                        userCart[localCartItemKey] = {...localCart[localCartItemKey]};
+                    }
+                });
+                
+                await userRef.update("cart", userCart);
+
+                dispatch({
+                    type: COMBINE_LOCAL_AND_USER_CARTS,
+                    payload: userCart
+                });
+
             }
             catch(error)
             {
+                dispatch({
+                    type: COMBINE_LOCAL_AND_USER_CARTS,
+                    payload: getState().user.currentUser.cart
+                });
+
                 console.log("Error Clearing Cart", error.message);
             }
         }
-
-        dispatch({
-            type: CLEAR_CART
-        });
-
     }
-    */
-    return{
-        type: CLEAR_CART
-    };
 }
