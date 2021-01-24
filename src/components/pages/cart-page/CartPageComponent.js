@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import CartPageItemComponent from '../../cart-page-item/CartPageItemComponent';
+import CustomButtonComponent from '../../custom-button-component/CustomButtonComponent';
 import './CartPageComponent.css';
 
 const CartPageComponent = (props) =>
@@ -43,6 +45,7 @@ const CartPageComponent = (props) =>
                     SUBTOTAL: ${subTotal.toFixed(2)}<br/>
                     SHIPPING: FREE <br />
                     TOTAL: ${(subTotal).toFixed(2)}
+                    <CustomButtonComponent onClick={() => props.history.push('/checkout')}>PROCEED TO CHECKOUT</CustomButtonComponent>
                 </div>
             </div>
         </div>
@@ -54,4 +57,4 @@ const mapStateToProps = (state) =>
     return {cart: state.cart};
 }
 
-export default connect(mapStateToProps)(CartPageComponent);
+export default withRouter(connect(mapStateToProps)(CartPageComponent));
