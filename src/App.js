@@ -11,6 +11,7 @@ import CartPageComponent from './components/pages/cart-page/CartPageComponent';
 import HeaderComponent from './components/header/HeaderComponent';
 import SignInPageComponent from './components/pages/sign-in-page/SignInPageComponent';
 import SignUpPageComponent from './components/pages/sign-up-page/SignUpPageComponent';
+import AccountPageComponent from './components/pages/account-page/AccountPageComponent';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { fetchShopData } from './redux/actions/shopDataActions';
@@ -66,6 +67,7 @@ class App extends React.Component
                 <hr />
                 <Switch>
                     <Route path="/checkout" component={CheckoutPageComponent}/>
+                    <Route path="/account" component={AccountPageComponent}/>
                     <Route path="/cart" component={CartPageComponent}/>
                     <Route path="/signIn" render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignInPageComponent />)}/>
                     <Route path="/signUp" render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignUpPageComponent />)}/>

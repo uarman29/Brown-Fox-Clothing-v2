@@ -14,11 +14,16 @@ const HeaderComponent = (props) =>{
                 <img alt="logo" src={logo}/>
             </Link>
             <div className="options">
-                <Link className="option" to="/mens">Mens</Link>
-                <Link className="option" to="/womens">Womens</Link>
+                <Link className="option" to="/mens">MENS</Link>
+                <Link className="option" to="/womens">WOMENS</Link>
                 {
                     props.currentUser ? 
-                    <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div>
+                    (
+                        <React.Fragment>
+                            <Link className="option" to="/account">MY ACCOUNT</Link>
+                            <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div>
+                        </React.Fragment>
+                    )
                     :
                     <Link className="option" to="/signIn">SIGN IN</Link>
                 }
