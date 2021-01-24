@@ -6,7 +6,8 @@ import HomePageComponent from './components/pages/home-page/HomePageComponent';
 import CategorySelectionPageComponent from './components/pages/category-selection-page/CategorySelectionPageComponent';
 import CategoryPageComponent from './components/pages/category-page/CategoryPageComponent';
 import ItemPageComponent from './components/pages/item-page/ItemPageComponent';
-import CheckoutPageCheckout from './components/pages/checkout-page/CheckoutPageComponent';
+import CheckoutPageComponent from './components/pages/checkout-page/CheckoutPageComponent';
+import CartPageComponent from './components/pages/cart-page/CartPageComponent';
 import HeaderComponent from './components/header/HeaderComponent';
 import SignInPageComponent from './components/pages/sign-in-page/SignInPageComponent';
 import SignUpPageComponent from './components/pages/sign-up-page/SignUpPageComponent';
@@ -64,7 +65,8 @@ class App extends React.Component
                 <HeaderComponent />
                 <hr />
                 <Switch>
-                    <Route path="/checkout" component={CheckoutPageCheckout}/>
+                    <Route path="/checkout" component={CheckoutPageComponent}/>
+                    <Route path="/cart" component={CartPageComponent}/>
                     <Route path="/signIn" render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignInPageComponent />)}/>
                     <Route path="/signUp" render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignUpPageComponent />)}/>
                     <Route path="/:category/:subcategory/:itemId" component={ItemPageComponent}/>
