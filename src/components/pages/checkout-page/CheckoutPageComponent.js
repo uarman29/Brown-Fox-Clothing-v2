@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
+import { clearCart } from '../../../redux/actions/cartActions';
+import { updateUserInfoOnCheckout, addUserOrder } from '../../../firebase/firebase.utils';
 import CustomFormInputComponent from '../../custom-form-input/CustomFormInputComponent';
 import CustomButtonComponent from '../../custom-button-component/CustomButtonComponent';
 import './CheckoutPageComponent.css';
 
 const CheckoutPageComponent = (props) =>
 {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [address, setAddress] = useState('');
+    const [name, setName] = useState('');
+    const [streetAddress, setStreetAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
@@ -18,6 +20,24 @@ const CheckoutPageComponent = (props) =>
     const [expirationDate, setExpirationDate] = useState('');
     const [CVV, setCVV] = useState('');
 
+    const fillData = () =>
+    {
+        if(props.user !== null)
+        {
+            setName(props.user.displayName);
+            setStreetAddress(props.user.address.street);
+            setCity(props.user.address.city);
+            setState(props.user.address.state);
+            setZip(props.user.address.zip);
+            setNameOnCard(props.user.paymentDetails.nameOnCard);
+            setCardNumber(props.user.paymentDetails.cardNumber);
+            setExpirationDate(props.user.paymentDetails.expirationDate);
+            setCVV(props.user.paymentDetails.CVV);
+        }
+    }
+
+    useEffect(fillData, [props.user]);
+    
     let subTotal = 0;
     const getSubtotal = () =>
     {
@@ -27,30 +47,36 @@ const CheckoutPageComponent = (props) =>
         });
     }
 
+    const handleSubmit = async (e) =>
+    {
+        e.preventDefault();
+        if(props.user !== null)
+        {
+            let address = {street: streetAddress, city: city, state: state, zip: zip};
+            let paymentDetails = {nameOnCard: nameOnCard, cardNumber: cardNumber, expirationDate: expirationDate, CVV: CVV};
+            await updateUserInfoOnCheckout(props.user.uid, address, paymentDetails);
+            await addUserOrder(props.user.uid, address, paymentDetails, props.cart);
+        }
+        await props.clearCart(true);
+        alert("SUCCESS");
+        props.history.push("/");
+    }
+
     return(
         <div className="checkout-page">
-            <form className="input-form" onSubmit={(e) => e.preventDefault()}>
+            <form className="input-form" onSubmit={(e) => handleSubmit(e)}>
                 <div className="input-container">
                     <div className="user-info-container">
                         <h2>User Details</h2>
                         <hr />
                         <div className="user-info-input">
                             <CustomFormInputComponent 
-                                label="First Name" 
+                                label="Name" 
                                 type="text" 
                                 required 
-                                name="firstName" 
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                            />
-
-                            <CustomFormInputComponent 
-                                label="Last Name" 
-                                type="text" 
-                                required 
-                                name="lastName" 
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
+                                name="name" 
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
                         </div>
                     </div>
@@ -60,12 +86,12 @@ const CheckoutPageComponent = (props) =>
                         <hr />
                         <div className="shipping-info-input">
                             <CustomFormInputComponent 
-                                label="Address" 
+                                label="Street Address" 
                                 type="text" 
                                 required 
                                 name="address" 
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
+                                value={streetAddress}
+                                onChange={(e) => setStreetAddress(e.target.value)}
                             />
 
                             <CustomFormInputComponent 
@@ -164,4 +190,4 @@ const mapStateToProps = (state) =>
 {
     return {user: state.user.currentUser, cart: state.cart};
 }
-export default connect(mapStateToProps)(CheckoutPageComponent);
+export default withRouter(connect(mapStateToProps, { clearCart })(CheckoutPageComponent));

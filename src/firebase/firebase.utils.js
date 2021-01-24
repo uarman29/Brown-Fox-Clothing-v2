@@ -23,13 +23,13 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
 
     const userRef = firestore.doc(`users/${userAuth.uid}`);
     const snapShot = await userRef.get();
-
     if(!snapShot.exists)
     {
         const { displayName, email, uid } = userAuth;
         const createdAt = new Date();
         const cart = {};
-        const orders = {};
+        const paymentDetails = {nameOnCard:'', cardNumber:'', expirationDate:'', CVV:''};
+        const address = {street:'', city:'', state: '', zip:''};
 
         try
         {
@@ -39,7 +39,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
                 email,
                 createdAt,
                 cart,
-                orders,
+                paymentDetails,
+                address,
                 ...additionalData
             });
         }
@@ -50,6 +51,32 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
     }
 
     return userRef;
+}
+
+export const updateUserInfoOnCheckout = async (uid, address, paymentDetails) =>
+{
+    await firestore.doc(`users/${uid}`).update({address: address, paymentDetails: paymentDetails});
+}
+
+export const addUserOrder = async (uid, address, paymentDetails, cart) =>
+{
+    const snapShot = await firestore.doc(`orders/${uid}`).get();
+    let orders = {};
+    let newOrderId = 1;
+    let newOrder = {id: newOrderId, uid: uid, address: address, paymentDetails: paymentDetails, cart: cart};
+    if(snapShot.exists)
+    {
+        orders = snapShot.data().orderObject
+        newOrderId = Object.keys(orders).length + 1;
+        newOrder = {id: newOrderId, uid: uid, address: address, paymentDetails: paymentDetails, cart: cart};
+        orders[newOrderId] = newOrder;
+        await firestore.doc(`orders/${uid}`).update({orderObject: orders});
+    }
+    else
+    {
+        orders[newOrderId] = newOrder;
+        await firestore.doc(`orders/${uid}`).set({orderObject: orders});
+    }
 }
 
 export const getShopData = async () =>
