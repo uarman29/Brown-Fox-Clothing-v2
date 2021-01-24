@@ -1,10 +1,16 @@
 .checkout-page
 {
     width: 100%;
-    height: 85%;
+    height: 120%;
     display: flex;
 }
 
+.checkout-page .input-form
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
 .checkout-page .input-container
 {
     width: 60%;
@@ -17,41 +23,49 @@
     text-align: center;
 }
 
-.user-info-container
+.checkout-page .user-info-container
 {
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
-    border-radius: .3rem;
-    border: 1px solid rgba(0,0,0,.125);
     width: 100%;
-    
 }
 
-.user-info-container h2
+.checkout-page .user-info-input
 {
-    background-color: #343a40;
-    text-align: center;
-    color: white;
-    padding: 10px;
-    margin: 0;
-    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.card-info-container
+.checkout-page .user-info-input > *
 {
-    margin-top: 5%;
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
-    border-radius: .3rem;
-    border: 1px solid rgba(0,0,0,.125);
-    width: 100%;
-    
+    width: 50%;
 }
 
-.card-info-container h2
+.checkout-page .shipping-info-input
 {
-    background-color: #343a40;
-    text-align: center;
-    color: white;
-    padding: 10px;
-    margin: 0;
-    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.checkout-page .shipping-info-input > *
+{
+    width: 50%;
+}
+
+.checkout-page .card-info-input
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.checkout-page .card-info-input > *
+{
+    width: 50%;
+}
+
+.checkout-page .payment-details button
+{
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
 }
