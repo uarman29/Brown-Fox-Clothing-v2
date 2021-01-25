@@ -1,0 +1,9 @@
+.order-list-item{
+    width: 100%;
+}
+.order-list-item-contents
+{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { clearCart } from '../../../redux/actions/cartActions';
-import { updateUserInfoOnCheckout, addUserOrder } from '../../../firebase/firebase.utils';
+import { updateUserInfo, addUserOrder } from '../../../firebase/firebase.utils';
 import CustomFormInputComponent from '../../custom-form-input/CustomFormInputComponent';
 import CustomButtonComponent from '../../custom-button-component/CustomButtonComponent';
 import './CheckoutPageComponent.css';
@@ -54,8 +54,8 @@ const CheckoutPageComponent = (props) =>
         {
             let address = {street: streetAddress, city: city, state: state, zip: zip};
             let paymentDetails = {nameOnCard: nameOnCard, cardNumber: cardNumber, expirationDate: expirationDate, CVV: CVV};
-            await updateUserInfoOnCheckout(props.user.uid, address, paymentDetails);
-            await addUserOrder(props.user.uid, address, paymentDetails, props.cart);
+            await updateUserInfo(props.user.uid, address, paymentDetails);
+            await addUserOrder(props.user.uid, address, paymentDetails, props.cart, subTotal.toFixed(2));
         }
         await props.clearCart(true);
         alert("SUCCESS");

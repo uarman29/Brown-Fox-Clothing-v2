@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { updateUserInfo } from '../../firebase/firebase.utils';
 
 import CustomButtonComponent from '../custom-button-component/CustomButtonComponent';
 import CustomFormInputComponent from '../custom-form-input/CustomFormInputComponent';
@@ -35,14 +36,20 @@ const AccountDetailsComponent = (props) =>
 
     useEffect(fillData, [props.user]);
 
-    const handleShippingInfoSubmit = (e) =>
+    const handleShippingInfoSubmit = async (e) =>
     {
         e.preventDefault();
+        let address = {street: streetAddress, city: city, state: state, zip: zip};
+        await updateUserInfo(props.user.uid, address, null);
+        alert("DONE");
     }
 
-    const handleCardInfoSubmit = (e) =>
+    const handleCardInfoSubmit = async (e) =>
     {
         e.preventDefault();
+        let paymentDetails = {nameOnCard: nameOnCard, cardNumber: cardNumber, expirationDate: expirationDate, CVV: CVV};
+        await updateUserInfo(props.user.uid, null, paymentDetails);
+        alert("DONE");
     }
 
     return(

@@ -53,7 +53,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
     return userRef;
 }
 
-export const updateUserInfoOnCheckout = async (uid, address = null, paymentDetails = null) =>
+export const updateUserInfo = async (uid, address, paymentDetails) =>
 {
     if(paymentDetails === null)
     {
@@ -70,17 +70,25 @@ export const updateUserInfoOnCheckout = async (uid, address = null, paymentDetai
     await firestore.doc(`users/${uid}`).update({address: address, paymentDetails: paymentDetails});
 }
 
-export const addUserOrder = async (uid, address, paymentDetails, cart) =>
+export const addUserOrder = async (uid, address, paymentDetails, cart, total) =>
 {
     const snapShot = await firestore.doc(`orders/${uid}`).get();
     let orders = {};
     let newOrderId = 1;
-    let newOrder = {id: newOrderId, uid: uid, address: address, paymentDetails: paymentDetails, cart: cart};
+    const orderDate = new Date();
+    let newOrder = {
+        id: newOrderId, 
+        uid: uid, address: address, 
+        paymentDetails: paymentDetails, 
+        cart: cart, 
+        orderDate: orderDate, 
+        total: total.toFixed(2)
+    };
     if(snapShot.exists)
     {
         orders = snapShot.data().orderObject
         newOrderId = Object.keys(orders).length + 1;
-        newOrder = {id: newOrderId, uid: uid, address: address, paymentDetails: paymentDetails, cart: cart};
+        newOrder["id"] = newOrderId;
         orders[newOrderId] = newOrder;
         await firestore.doc(`orders/${uid}`).update({orderObject: orders});
     }
@@ -89,6 +97,14 @@ export const addUserOrder = async (uid, address, paymentDetails, cart) =>
         orders[newOrderId] = newOrder;
         await firestore.doc(`orders/${uid}`).set({orderObject: orders});
     }
+}
+
+export const getUserOrders = async (uid) =>
+{
+    const snapShot = await firestore.doc(`orders/${uid}`).get();
+    if(snapShot.exists)
+        return snapShot.data().orderObject;
+    return {};
 }
 
 export const getShopData = async () =>
