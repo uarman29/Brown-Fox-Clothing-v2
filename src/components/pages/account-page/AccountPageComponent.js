@@ -1,4 +1,5 @@
 import React from 'react';
+import AccountDetailsComponent from '../../account-details/AccountDetailsComponent';
 
 import './AccountPageComponent.css';
 
@@ -14,7 +15,7 @@ const AccountPageComponent = () =>
                 <hr />
             </div>
             <div className="selected-content">
-
+                <AccountDetailsComponent />
             </div>
         </div>
     );

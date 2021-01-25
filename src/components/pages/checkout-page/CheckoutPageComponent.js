@@ -179,7 +179,7 @@ const CheckoutPageComponent = (props) =>
                     SUBTOTAL: ${subTotal.toFixed(2)}<br/>
                     SHIPPING: FREE <br />
                     TOTAL: ${(subTotal).toFixed(2)}
-                    <CustomButtonComponent>Checkout</CustomButtonComponent>
+                    <CustomButtonComponent type="submit">Checkout</CustomButtonComponent>
                 </div>
             </form>
         </div>

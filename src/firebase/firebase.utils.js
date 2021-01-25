@@ -53,8 +53,20 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
     return userRef;
 }
 
-export const updateUserInfoOnCheckout = async (uid, address, paymentDetails) =>
+export const updateUserInfoOnCheckout = async (uid, address = null, paymentDetails = null) =>
 {
+    if(paymentDetails === null)
+    {
+        await firestore.doc(`users/${uid}`).update({address: address});
+        return;
+    }
+
+    if(address === null)
+    {
+        await firestore.doc(`users/${uid}`).update({paymentDetails: paymentDetails});
+        return;
+    }
+
     await firestore.doc(`users/${uid}`).update({address: address, paymentDetails: paymentDetails});
 }
 
