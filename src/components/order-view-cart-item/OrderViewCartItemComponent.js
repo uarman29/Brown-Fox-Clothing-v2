@@ -11,7 +11,7 @@ const OrderViewCartItemComponent = (props) =>
             <span className="name">{props.item.name}</span>
             <span className="quantity">{props.item.quantity}</span>
             <span className="price">${props.item.price}</span>
-            <span className="size">${props.item.size}</span>
+            <span className="size">{props.item.size}</span>
         </div>
     );
 };

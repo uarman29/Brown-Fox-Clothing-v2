@@ -9,6 +9,12 @@
     margin-right: auto;
 }
 
+.account-details > h1
+{
+    text-align: center;
+    margin-top: 0;
+}
+
 .account-details .user-info-container
 {
     top: 0;

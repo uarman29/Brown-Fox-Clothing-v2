@@ -29,6 +29,7 @@ const OrderListComponent = (props) =>
     {
         return(
             <div className="order-list-container">
+                <h1>Past Orders</h1>
                 <div className="order-headers">
                     <div>Ordered</div>
                     <div>Total</div>

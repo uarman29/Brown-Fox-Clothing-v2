@@ -71,7 +71,7 @@ const ItemPageComponent = (props) =>
                     <div className="quantity">
                         <div className="quantity-label">Quantity:    </div>
                         <div className="quantity-value">
-                            <input min="1" max="99" type="number" value={quantity} onChange={(e)=> setQuantity(e.target.value)}/>
+                            <input min="1" max="30" type="number" value={quantity} onChange={(e)=> e.target.value > 30 ? setQuantity(30) : setQuantity(e.target.value)}/>
                         </div>
                     </div>
                     <div className="add-to-cart-button">

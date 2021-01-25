@@ -54,6 +54,7 @@ const AccountDetailsComponent = (props) =>
 
     return(
         <div className="account-details">
+            <h1>Account Details</h1>
             <div className="user-info-container">
                 <h2>User Details</h2>
                 <hr />

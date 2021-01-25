@@ -28,6 +28,14 @@ const OrderViewComponent = (props) =>
             </div>
             <div>
                 <h2>Cart:</h2>
+                <div className="cart-headers">
+                    <div>Preview</div>
+                    <div>Name</div>
+                    <div>Quantity</div>
+                    <div>Price</div>
+                    <div>Size</div>
+                </div>
+                <hr />
                 {renderCart()}
             </div>
         </div>
