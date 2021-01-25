@@ -82,7 +82,7 @@ export const addUserOrder = async (uid, address, paymentDetails, cart, total) =>
         paymentDetails: paymentDetails, 
         cart: cart, 
         orderDate: orderDate, 
-        total: total.toFixed(2)
+        total: Number(total).toFixed(2)
     };
     if(snapShot.exists)
     {

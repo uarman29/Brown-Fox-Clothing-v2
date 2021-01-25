@@ -67,10 +67,10 @@ class App extends React.Component
                 <hr />
                 <Switch>
                     <Route path="/checkout" component={CheckoutPageComponent}/>
-                    <Route path="/account" component={AccountPageComponent}/>
                     <Route path="/cart" component={CartPageComponent}/>
                     <Route path="/signIn" render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignInPageComponent />)}/>
                     <Route path="/signUp" render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignUpPageComponent />)}/>
+                    <Route path="/account" render={() => !this.props.currentUser ? (<Redirect to='/' />) : (<AccountPageComponent />)}/>
                     <Route path="/:category/:subcategory/:itemId" component={ItemPageComponent}/>
                     <Route path="/:category/:subcategory" component={CategoryPageComponent}/>
                     <Route path="/:category" component={CategorySelectionPageComponent}/>
