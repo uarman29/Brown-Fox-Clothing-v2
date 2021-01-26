@@ -1,5 +1,5 @@
 # NOTES
-This project is currently hosted at https://brown-fox-clothing.netlify.app/.
+This project is currently being hosted at https://brown-fox-clothing.netlify.app/.
 
 This project was inspired by the udemy react course found at: https://www.udemy.com/course/complete-react-developer-zero-to-mastery/
 
