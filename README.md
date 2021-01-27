@@ -1,3 +1,8 @@
+# NOTES
+This project is currently being hosted at https://brown-fox-clothing.netlify.app/.
+
+This project was inspired by the udemy react course found at: https://www.udemy.com/course/complete-react-developer-zero-to-mastery/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
