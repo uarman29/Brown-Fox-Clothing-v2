@@ -10,7 +10,7 @@
 .header .logo-container
 {
     height: 100%;
-    width: 70px;
+    width: 5vw;
 }
 
 .header .logo-container img
@@ -29,8 +29,8 @@
 
 .header .options .option
 {
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: auto;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    font-size: calc(10px + .5vw);
     cursor: pointer;
 }

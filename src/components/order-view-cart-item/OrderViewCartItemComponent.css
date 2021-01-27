@@ -5,8 +5,8 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     min-height: 100px;
     border-bottom: 1px solid darkgrey;
-    padding: 15px 0;
-    font-size: 20px;
+    padding: 1vh 0;
+    font-size: calc(7px + 1vw);
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -15,7 +15,7 @@
 .order-view-cart-item .image-container
 {
     width: 100%;
-    padding-right: 15px;
+    padding-right: 1vw;
 }
 
 .order-view-cart-item .image-container img

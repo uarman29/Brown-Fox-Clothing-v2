@@ -21,31 +21,35 @@ const CartPageComponent = (props) =>
     return(
         <div className="cart-page">
             <div className="cart-page-container">
-                <div className="cart-items">
-                    <div className="cart-header">
-                        <div className="header-block">
-                            <span>Product</span>
+                <div className="cart-items-container">
+                    <div className="cart-items">
+                        <div className="cart-header">
+                            <div className="header-block">
+                                <span>Product</span>
+                            </div>
+                            <div className="header-block">
+                                <span>Description</span>
+                            </div>
+                            <div className="header-block">
+                                <span>Quantity</span>
+                            </div>
+                            <div className="header-block">
+                                <span>Price</span>
+                            </div>
+                            <div className="header-block">
+                                <span>Remove</span>
+                            </div>
                         </div>
-                        <div className="header-block">
-                            <span>Description</span>
-                        </div>
-                        <div className="header-block">
-                            <span>Quantity</span>
-                        </div>
-                        <div className="header-block">
-                            <span>Price</span>
-                        </div>
-                        <div className="header-block">
-                            <span>Remove</span>
-                        </div>
+                        {renderCart()}
                     </div>
-                    {renderCart()}
                 </div>
-                <div className="payment-details">
-                    SUBTOTAL: ${subTotal.toFixed(2)}<br/>
-                    SHIPPING: FREE <br />
-                    TOTAL: ${(subTotal).toFixed(2)}
-                    <CustomButtonComponent onClick={() => props.history.push('/checkout')}>PROCEED TO CHECKOUT</CustomButtonComponent>
+                <div className="payment-details-container">
+                    <div className="payment-details">
+                        SUBTOTAL: ${subTotal.toFixed(2)}<br/>
+                        SHIPPING: FREE <br />
+                        TOTAL: ${(subTotal).toFixed(2)}
+                        <CustomButtonComponent onClick={() => props.history.push('/checkout')}>PROCEED TO CHECKOUT</CustomButtonComponent>
+                    </div>
                 </div>
             </div>
         </div>

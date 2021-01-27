@@ -11,13 +11,14 @@
     overflow: hidden;
     position: relative;
     justify-self: center;
+    margin: 1%;
 }
 
 .category-card .content
 {
     height: 50%;
     width: 50%;
-    padding: 0 25px;
+    padding: 0 1%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,12 +57,12 @@
 {
     font-weight: bold;
     margin-bottom: 6px;
-    font-size: auto;
+    font-size: calc(12px + 1vmax);
     color: #4a4a4a;
 }
 
 .category-card .content .subtitle
 {
     font-weight: lighter;
-    font-size: auto;
+    font-size: calc(12px + .5vmax);
 }

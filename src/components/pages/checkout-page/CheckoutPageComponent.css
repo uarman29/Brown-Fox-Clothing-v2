@@ -10,17 +10,22 @@
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .checkout-page .input-container
 {
     width: 60%;
+    flex: 1 1 auto;
 }
 
 .checkout-page .payment-details
 {
     width: 40%;
-    font-size: 5vw;
+    font-size: calc(12px + 4vw);
     text-align: center;
+    flex: 1 1 auto;
+    min-width: 300px;
 }
 
 .checkout-page .user-info-container
@@ -47,7 +52,9 @@
 
 .checkout-page .shipping-info-input > *
 {
+    flex: 1 1 auto;
     width: 50%;
+    min-width: 200px;
 }
 
 .checkout-page .card-info-input
@@ -58,7 +65,9 @@
 
 .checkout-page .card-info-input > *
 {
+    flex: 1 1 auto;
     width: 50%;
+    min-width: 200px;
 }
 
 .checkout-page .payment-details button
