@@ -39,6 +39,8 @@
     height: 100%;
     background-size: cover;
     background-position: center;
+    flex: 1 1 auto;
+    min-width: 300px;
     margin-bottom: 5px;
     margin-right: 5%;
 }
@@ -46,6 +48,8 @@
 .item-page .item-details
 {
     width: 50%;
+    flex: 1 1 auto;
+    padding-bottom: 2vh;
 }
 
 .item-details .item-name
